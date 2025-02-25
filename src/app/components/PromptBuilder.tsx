@@ -147,7 +147,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ onGeneratePrompt }
 
   // Generate the prompt based on selected options
   const generatePrompt = () => {
-    let promptParts: string[] = [];
+    const promptParts: string[] = [];
     
     // Start with the subject if provided
     if (subject.trim()) {

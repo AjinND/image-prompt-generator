@@ -27,7 +27,7 @@ export const PromptDisplay: React.FC<PromptDisplayProps> = ({ prompt }) => {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">Generated Prompt</h2>
         <p className="text-gray-500 dark:text-gray-400 italic">
-          Your generated prompt will appear here. Select options and click "Generate Prompt".
+          Your generated prompt will appear here. Select options and click &quot;Generate Prompt&quot;.
         </p>
       </div>
     );
