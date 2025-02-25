@@ -2,7 +2,7 @@
 
 A responsive web application that helps users create well-structured prompts for AI image generation tools such as DALL-E, Midjourney, Stable Diffusion, etc. Built with Next.js, TypeScript, and Tailwind CSS.
 
-![AI Image Prompt Generator Screenshot](./public/screenshots/prompt-generator-screenshot.png)
+![AI Image Prompt Generator Screenshot](./public/screenshot/prompt-generator-screenshot.png)
 
 ## Features
 
