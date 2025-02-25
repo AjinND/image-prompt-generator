@@ -26,7 +26,7 @@ A responsive web application that helps users create well-structured prompts for
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ai-image-prompt-generator.git
+   git clone https://github.com/AjinND/image-prompt-generator.git
    cd image-prompt-generator
    ```
 
