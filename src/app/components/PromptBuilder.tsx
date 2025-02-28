@@ -336,8 +336,6 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({
 
   // Add loading state (optional, see enhancements below)
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
   // Updated generatePrompt function
   const generatePrompt = async () => {
     // Construct base prompt (same as original logic)
@@ -398,8 +396,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({
       const data = await response.json();
       onGeneratePrompt(data.prompt);
     } catch (error) {
-      console.error('Error generating prompt:', error);
-      setError('Failed to enhance prompt with AI. Using basic prompt instead.');
+      console.error('Error generating prompt. Failed to enhance prompt with AI. Using basic prompt instead.', error);
       onGeneratePrompt(basePrompt);
     } finally {
       setIsGenerating(false);
