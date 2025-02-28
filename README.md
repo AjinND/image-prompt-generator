@@ -9,6 +9,7 @@ A responsive web application that helps users create well-structured prompts for
 - **Interactive Prompt Builder**: Select from multiple categories to build comprehensive image prompts
 - **Rich Option Categories**: Art styles, moods, settings, lighting, camera angles, and quality descriptors
 - **Custom Detailing**: Add specific details to further enhance your prompts
+- **AI-Powered Prompt Enhancement**: Leverages Hugging Face's MagicPrompt model to refine and enhance your prompts
 - **Prompt History**: Access your last 10 generated prompts for quick reuse
 - **Responsive Design**: Works seamlessly on mobile, tablet, and desktop devices
 - **Dark Mode Support**: Automatic theme switching based on your system preferences
@@ -21,6 +22,7 @@ A responsive web application that helps users create well-structured prompts for
 
 - Node.js (version 14.x or higher)
 - npm or Yarn package manager
+- Hugging Face API key (for AI prompt enhancement)
 
 ### Installation
 
@@ -37,14 +39,20 @@ A responsive web application that helps users create well-structured prompts for
    yarn install
    ```
 
-3. Run the development server:
+3. Set up environment variables:
+   Create a `.env.local` file in the root directory with:
+   ```
+   HUGGINGFACE_API_KEY=your_huggingface_api_key
+   ```
+
+4. Run the development server:
    ```bash
    npm run dev
    # or
    yarn dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
 ## Usage Guide
 
@@ -59,7 +67,7 @@ A responsive web application that helps users create well-structured prompts for
    - Camera/Perspective (Close-up, Wide Shot, Aerial, etc.)
    - Quality Descriptors (High Quality, Professional, Trending, etc.)
 3. **Add Custom Details**: Include any specific elements or attributes not covered by the preset options.
-4. **Generate**: Click the "Generate Prompt" button to create your prompt.
+4. **Generate**: Click the "Generate Prompt" button to create your prompt. The app will use your base prompt and enhance it with AI assistance.
 5. **Copy**: Use the copy button to copy the prompt to your clipboard.
 
 ### Tips for Effective Prompts
@@ -67,6 +75,7 @@ A responsive web application that helps users create well-structured prompts for
 - Be specific about the subject and style you want
 - Combine different categories for more detailed results
 - Use the custom details field to add unique elements
+- The AI enhancement will add creative elements, but start with a good foundation
 - Experiment with different combinations to find what works best with your preferred AI image generator
 
 ## Project Structure
@@ -80,6 +89,10 @@ image-prompt-generator/
 ├── pages/
 │   ├── _app.tsx             # Next.js application wrapper
 │   └── index.tsx            # Main page of the application
+├── app/
+│   └── api/
+│       └── generate-prompt/
+│           └── route.ts     # API route for AI prompt enhancement
 ├── public/                  # Static assets
 ├── styles/                  # CSS styles
 ├── next.config.js           # Next.js configuration
@@ -87,6 +100,16 @@ image-prompt-generator/
 ├── tsconfig.json            # TypeScript configuration
 └── package.json             # Project dependencies
 ```
+
+## How the AI Enhancement Works
+
+The application uses Hugging Face's `Gustavosta/MagicPrompt-Stable-Diffusion` model to enhance your base prompts. When you click "Generate Prompt":
+
+1. The app constructs a base prompt from your selected options
+2. This base prompt is sent to the Next.js API route `/api/generate-prompt`
+3. The API route calls the Hugging Face Inference API to enhance the prompt
+4. The model adds creative elements while maintaining your original intent
+5. If the API call fails, the application falls back to using your original base prompt
 
 ## Building for Production
 
@@ -109,9 +132,11 @@ npm install -g vercel
 vercel
 ```
 
+Make sure to set the `HUGGINGFACE_API_KEY` environment variable in your Vercel project settings.
+
 ### Netlify
 
-Configure your `netlify.toml` file or deploy through the Netlify UI.
+Configure your `netlify.toml` file or deploy through the Netlify UI. Add the required environment variables in the Netlify dashboard.
 
 ### Traditional Hosting
 
@@ -145,6 +170,20 @@ const promptCategories: PromptCategory[] = [
 
 To change how prompts are generated, modify the `generatePrompt` function in `PromptBuilder.tsx`.
 
+### Customizing AI Enhancement Parameters
+
+To adjust how the AI enhances prompts, modify the parameters in the `route.ts` file:
+
+```typescript
+parameters: {
+  max_length: 150, // Adjust for longer or shorter outputs
+  temperature: 0.7, // Higher for more creative, lower for more predictable
+  top_p: 0.9, // Controls diversity of outputs
+  do_sample: true, // Enables sampling
+  repetition_penalty: 1.2, // Prevents repetitive text
+}
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -163,4 +202,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Tailwind CSS for the styling framework
 - Next.js team for the React framework
+- Hugging Face for providing the AI models and inference API (credits: Gustavosta/MagicPrompt-Stable-Diffusion)
 - AI image generation communities for prompt inspiration
